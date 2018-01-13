@@ -1,0 +1,24 @@
+.grid-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: repeat(3, auto);
+    height: 60vh;
+    width: 60vh;
+    margin: auto;
+
+}
+.grid-child{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    grid-template-rows: repeat(3, auto);
+}
+.grid-item{
+    display: flex;
+    align-items: center;
+    align-content: center;
+}
