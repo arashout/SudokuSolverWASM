@@ -1,11 +1,11 @@
 use std::fmt;
 
-pub const BOARD_LENGTH: u32 = 9;
-const BLOCK_LENGTH: u32 = 3;
+pub const BOARD_LENGTH: usize = 9;
+const BLOCK_LENGTH: usize = 3;
 
 #[derive(Copy, Clone)]
 pub struct SudokuBoard {
-    pub numbers: [u32; (BOARD_LENGTH * BOARD_LENGTH) as usize],
+    pub numbers: [u32; (BOARD_LENGTH * BOARD_LENGTH)],
 }
 
 impl fmt::Display for SudokuBoard {
@@ -23,8 +23,8 @@ impl fmt::Display for SudokuBoard {
 
 #[derive(PartialEq)]
 pub struct Position {
-    pub row: u32,
-    pub col: u32,
+    pub row: usize,
+    pub col: usize,
 }
 
 fn get_square(p: &Position) -> Position {
@@ -33,11 +33,11 @@ fn get_square(p: &Position) -> Position {
     return Position { row: rb, col: cb };
 }
 
-fn get_index(p: &Position) -> u32 {
+fn get_index(p: &Position) -> usize {
     return p.col + p.row * BOARD_LENGTH;
 }
 
-fn get_position(i: u32) -> Position {
+fn get_position(i: usize) -> Position {
     return Position {
         row: i / BOARD_LENGTH,
         col: i % BOARD_LENGTH,
@@ -47,7 +47,7 @@ fn get_position(i: u32) -> Position {
 impl SudokuBoard {
     pub fn new(line: String) -> SudokuBoard {
         let mut sb = SudokuBoard {
-            numbers: [0; (BOARD_LENGTH * BOARD_LENGTH) as usize],
+            numbers: [0; (BOARD_LENGTH * BOARD_LENGTH)],
         };
         for (i, c) in line.chars().enumerate() {
             if c != '\n' {

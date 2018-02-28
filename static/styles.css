@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 .grid {
     display: grid;
@@ -16,9 +17,19 @@
     display: grid;
     grid-template-columns: repeat(3,auto);
     grid-template-rows: repeat(3, auto);
+
+    border: black solid 1px;
 }
 .grid-item{
     display: flex;
+    height: 100%;
+    width: 100%;
     align-items: center;
     align-content: center;
+    border: black solid 1px;
+}
+
+.grid-item p {
+    text-align: center;
+    width: 100%;
 }
