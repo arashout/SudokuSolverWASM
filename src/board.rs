@@ -5,7 +5,7 @@ const BLOCK_LENGTH: usize = 3;
 
 #[derive(Copy, Clone)]
 pub struct SudokuBoard {
-    pub numbers: [u32; (BOARD_LENGTH * BOARD_LENGTH)],
+    pub numbers: [usize; (BOARD_LENGTH * BOARD_LENGTH)],
 }
 
 impl fmt::Display for SudokuBoard {
@@ -51,7 +51,7 @@ impl SudokuBoard {
         };
         for (i, c) in line.chars().enumerate() {
             if c != '\n' {
-                sb.numbers[i] = c.to_digit(10).expect("Not unsigned integer");
+                sb.numbers[i] = c.to_digit(10).expect("Not unsigned integer") as usize;
             }
         }
         return sb;
@@ -66,19 +66,19 @@ impl SudokuBoard {
         return None;
     }
 
-    pub fn set_num(&self, n: u32, p: &Position) -> SudokuBoard {
+    pub fn set_num(&self, n: usize, p: &Position) -> SudokuBoard {
         let mut new_board = self.clone();
         let i = get_index(p);
         new_board.numbers[i as usize] = n;
         return new_board;
     }
 
-    pub fn get_number(&self, ref p: &Position) -> u32 {
+    pub fn get_number(&self, ref p: &Position) -> usize {
         let i = get_index(&p);
-        return self.numbers[i as usize];
+        return self.numbers[i];
     }
 
-    pub fn is_in_row(&self, n: u32, p: &Position) -> bool {
+    pub fn is_in_row(&self, n: usize, p: &Position) -> bool {
         for col in 0..BOARD_LENGTH {
             let p_to_check = Position {
                 row: p.row,
@@ -97,7 +97,7 @@ impl SudokuBoard {
         return false;
     }
 
-    pub fn is_in_column(&self, n: u32, p: &Position) -> bool {
+    pub fn is_in_column(&self, n: usize, p: &Position) -> bool {
         for row in 0..BOARD_LENGTH {
             // TODO: Skip tile itself
 
@@ -119,7 +119,7 @@ impl SudokuBoard {
         return false;
     }
 
-    pub fn is_in_square(&self, n: u32, p: &Position) -> bool {
+    pub fn is_in_square(&self, n: usize, p: &Position) -> bool {
         let square = get_square(&p);
         let left_corner = BOARD_LENGTH * BLOCK_LENGTH * square.row + BLOCK_LENGTH * square.col;
 
@@ -132,7 +132,7 @@ impl SudokuBoard {
                     continue;
                 }
 
-                if self.numbers[index as usize] == n {
+                if self.numbers[index] == n {
                     return true;
                 }
             }
@@ -140,7 +140,7 @@ impl SudokuBoard {
         return false;
     }
 
-    pub fn is_valid_move(&self, n: u32, p: &Position) -> bool {
+    pub fn is_valid_move(&self, n: usize, p: &Position) -> bool {
         return !self.is_in_square(n, &p) && !self.is_in_row(n, &p) && !self.is_in_column(n, &p);
     }
 

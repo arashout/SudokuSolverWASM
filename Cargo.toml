@@ -2,6 +2,3 @@
 name = "sudoku_solver"
 version = "0.1.0"
 authors = ["Arash Outadi <arash.out@gmail.com>"]
-
-[dependencies]
-stdweb = "0.4"
